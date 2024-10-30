@@ -3,6 +3,7 @@ applyCoreConfiguration()
 plugins {
     `java-library`
     id("com.gradleup.shadow") version "8.3.4"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
 }
 
 project.description = "Core"
@@ -40,12 +41,16 @@ dependencies {
     implementation(libs.fastboard)
     implementation(libs.nbt) { isTransitive = false }
     implementation(libs.bstats)
+    implementation(libs.cloud)
+
 }
 
 tasks {
     assemble {
         dependsOn(shadowJar)
     }
+
+    minecraft
 
     shadowJar {
         dependsOn(project.project(":buildsystem-abstraction").subprojects.map {
